@@ -1,0 +1,16 @@
+{
+  "name": "Rubies Organic",
+  "short_name": "Rubies",
+  "description": "Rubies Organic storefront and contact experience",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8ED",
+  "theme_color": "#FFF8ED",
+  "icons": [
+    {
+      "src": "/rubiesorganic.webp",
+      "sizes": "any",
+      "type": "image/webp"
+    }
+  ]
+}

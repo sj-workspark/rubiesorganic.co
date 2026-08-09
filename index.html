@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;900&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="icon" href="rubiesorganic.webp" type="image/webp">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#FFF8ED">
   <link rel="stylesheet" href="style.css">
  </head>
  <body class="h-full w-full">
@@ -1057,5 +1059,12 @@
  <script src="contact.js"></script>
 <script src="javascript.js"></script>
 <script src="script.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch((err) => console.warn('Service worker registration failed', err));
+    });
+  }
+</script>
 </body>
  </html>

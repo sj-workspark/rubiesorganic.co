@@ -1,3 +1,54 @@
+  function getApiUrl() {
+    return (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? 'http://localhost:5000/api/contact'
+      : '/api/contact';
+  }
+
+  function getOfflineContactPayload() {
+    try {
+      return JSON.parse(localStorage.getItem('rubies-offline-contact'));
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function saveOfflineContactPayload(payload) {
+    localStorage.setItem('rubies-offline-contact', JSON.stringify(payload));
+  }
+
+  function clearOfflineContactPayload() {
+    localStorage.removeItem('rubies-offline-contact');
+  }
+
+  async function flushPendingContact() {
+    if (!navigator.onLine) return;
+
+    const pending = getOfflineContactPayload();
+    if (!pending) return;
+
+    try {
+      const response = await fetch(getApiUrl(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: pending.name,
+          email: pending.email,
+          message: pending.message
+        })
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (response.ok && data.success) {
+        clearOfflineContactPayload();
+      }
+    } catch (err) {
+      console.warn('Could not flush queued contact submission', err);
+    }
+  }
+
+  window.addEventListener('online', flushPendingContact);
+  document.addEventListener('DOMContentLoaded', flushPendingContact);
+
   document.getElementById('contact-form').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -12,11 +63,6 @@
       return;
     }
 
-    const appreciationNote = document.createElement('p');
-    appreciationNote.className = 'text-sm text-[#4A5D4E] leading-relaxed text-center font-light';
-    appreciationNote.innerHTML = 'Thank you for reaching out. We truly appreciate your message and will get back to you soon.';
-    submitButton.parentElement.insertBefore(appreciationNote, submitButton);
-
     submitButton.disabled = true;
     submitButton.innerHTML = '<span>Sending...</span>';
 
@@ -28,13 +74,24 @@
       submitButton.parentNode.appendChild(statusMessage);
     }
     statusMessage.textContent = 'Thank you for reaching out. We truly appreciate your message and will get back to you soon.';
+    statusMessage.style.display = 'block';
 
-    portalWrapper.classList.add('opacity-0', 'transform', 'scale-95');
+    portalWrapper.classList.remove('opacity-0', 'transform', 'scale-95');
 
     try {
-      const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-        ? 'http://localhost:5000/api/contact'
-        : '/api/contact';
+      const apiUrl = getApiUrl();
+
+      if (!navigator.onLine) {
+        const offlinePayload = {
+          name: clientName,
+          email: clientEmail,
+          message: clientMessage,
+          createdAt: new Date().toISOString(),
+          mode: 'offline-queued'
+        };
+        saveOfflineContactPayload(offlinePayload);
+        throw new Error('Offline. Your message has been saved locally and will be sent when you reconnect.');
+      }
 
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -98,10 +155,10 @@
         <div class="bg-white rounded-3xl p-8 md:p-10 border border-[#1E2D24]/10 shadow-xl text-center space-y-6">
           <div class="space-y-2">
             <span class="text-[10px] font-mono uppercase tracking-widest text-[#C9954D] font-bold">// Delivery Issue</span>
-            <h3 class="font-serif text-2xl font-bold text-[#192B24]">We could not deliver that message</h3>
+            <h3 class="font-serif text-2xl font-bold text-[#192B24]">${navigator.onLine ? 'We could not deliver that message' : 'Saved for later delivery'}</h3>
           </div>
           <p class="text-sm text-[#4A5D4E] leading-relaxed max-w-sm mx-auto font-light">
-            Please try again shortly, or email rubiesorganic@gmail.com directly with your inquiry.
+            ${err.message || 'We’re sorry, but your message could not be delivered at the moment. Please try again shortly, or reach out directly to rubiesorganic@gmail.com. We truly appreciate your patience and understanding.'}
           </p>
         </div>
       `;
