@@ -713,7 +713,7 @@
           We value your input and are committed to providing prompt and helpful responses. 
           Reach out to us through the following channels, and we will ensure your experience with Rubies Organic is seamless and satisfying.
       </p>
-    </div>s
+    </div>
 
     <!-- MAIN TWO-COLUMN LAYOUT CONTEXT -->
     <div class="grid lg:grid-cols-12 gap-12 xl:gap-16 items-start">
@@ -811,10 +811,26 @@
       <!-- RIGHT SIDEBAR: HIGH-FIDELITY COMPASSIONATE INTAKE PORTAL CONTAINER WRAPPER -->
       <div id="contact-portal-wrapper" class="lg:col-span-7 transition-all duration-500">
         <form id="contact-form" class="bg-white rounded-3xl p-8 md:p-10 border border-[#1E2D24]/10 shadow-xl shadow-black/[0.02] space-y-6">
+
+          <section aria-labelledby="whatsapp-contact-heading" class="rounded-2xl bg-[#233B31] p-6 md:p-7 text-white">
+            <div class="text-[10px] uppercase tracking-widest font-mono font-bold text-[#E9D8A6]">// Direct WhatsApp</div>
+            <h2 id="whatsapp-contact-heading" class="font-serif text-xl md:text-2xl font-light mt-2">Need help or support?</h2>
+            <p class="text-sm text-white/70 leading-relaxed mt-2 mb-5">
+              Start a direct chat with our team. Review your message in WhatsApp and tap Send when you are ready.
+            </p>
+            <div>
+              <a href="https://wa.me/2348099450337?text=Hello%20Rubies%20Organic%2C%20I%20need%20help%20and%20support.%20Please%20assist%20me."
+                 target="_blank" rel="noopener noreferrer"
+                 class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-[#123321] font-bold text-sm px-6 py-3.5 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#233B31]">
+                Help &amp; Support
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </section>
           
           <div class="border-b border-[#1E2D24]/10 pb-4 mb-2">
             <h2 class="font-serif text-xl font-bold text-[#192B24]">Direct Correspondence Intake</h2>
-            <p class="text-xs text-[#4A5D4E]/70 font-sans mt-1">Complete this encrypted secure communication log to route straight to an account representative.</p>
+            <p class="text-xs text-[#4A5D4E]/70 font-sans mt-1">Complete the form to open a text message addressed to our quick support team.</p>
           </div>
 
           <!-- Input Field 1: Full Name -->
@@ -844,13 +860,19 @@
           <!-- Action Processing Trigger Button -->
           <div class="pt-2">
             <button type="submit" id="contact-submit" class="w-full bg-[#344E41] hover:bg-[#233B31] text-white py-4 px-6 rounded-xl font-bold tracking-wide shadow-md transition duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 group"> 
-              <span>Send Message</span> 
+              <span>Prepare Support Message</span>
               <!-- Rubies Logo inside submit button action stream -->
               <svg class="w-4 h-4 stroke-white transition-transform group-hover:rotate-12" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <ellipse cx="50" cy="55" rx="32" ry="34" stroke-width="8" stroke-linecap="round"/>
                 <ellipse cx="50" cy="32" rx="16" ry="6" fill="white"/>
               </svg>
             </button>
+            <p class="text-xs text-[#4A5D4E]/70 text-center mt-3">
+              Your SMS app will open with your message ready. Tap Send there to deliver it; your carrier may charge standard messaging rates.
+            </p>
+            <p id="contact-status-message" role="status" aria-live="polite" hidden class="text-sm text-[#4F772D] leading-relaxed mt-3">
+              If your SMS app did not open, <a id="contact-sms-fallback" href="#" class="font-bold underline">tap here to open it</a>.
+            </p>
           </div>
 
           <!-- Privacy / Integrity Safe Footer Badge -->
@@ -858,7 +880,7 @@
             <svg class="w-3.5 h-3.5 text-[#4F772D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
             </svg>
-            <span>End-to-End Secure Privacy Protocols Active</span>
+            <span>Your message is sent only after you tap Send in your SMS app.</span>
           </div>
 
         </form>
@@ -868,7 +890,6 @@
   </div>
 </section>
 
-<!-- AUTOMATIC CORRESPONDENCE FORWARDING & RESPONDER ENGINE -->
     <!-- ========== REGISTER PAGE ========== -->
   <section id="page-register" class="page bg-[#FAF8F5] text-[#2C3E2B] font-sans min-h-screen">
   <div class="min-h-screen grid lg:grid-cols-12 overflow-hidden">

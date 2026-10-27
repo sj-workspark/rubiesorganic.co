@@ -9,7 +9,7 @@
 
 ## Main frontend files
 - index.html: main single-page app structure and page content
-- contact.js: contact form submission and confirmation UI
+- contact.js: opens the device SMS composer with the direct correspondence form details
 - javascript.js: shop/cart/order UI, contact form logic, checkout flow
 - shop.js: shop experience and ordering interactions
 - nav.js: mobile navigation behavior
