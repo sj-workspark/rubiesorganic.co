@@ -9,7 +9,9 @@ if (contactForm) {
     const clientMessage = document.getElementById('contact-message').value.trim();
     const whatsappLink = document.getElementById('contact-phone-display');
     const portalWrapper = document.getElementById('contact-portal-wrapper');
-    const supportNumber = new URL(whatsappLink.href).pathname.replace(/\D/g, '');
+    const supportNumber = whatsappLink && whatsappLink.hostname === 'wa.me'
+      ? whatsappLink.pathname.replace(/\D/g, '')
+      : '';
 
     if (!supportNumber) {
       const statusMessage = document.getElementById('contact-status-message');
@@ -53,6 +55,9 @@ if (contactForm) {
           <a id="contact-confirmation-sms" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-[#123321] font-bold text-sm px-6 py-4 transition-colors focus:outline-none focus:ring-2 focus:ring-[#233B31] focus:ring-offset-2">
             Open SMS and Send Message <span aria-hidden="true">↗</span>
           </a>
+          <p class="text-xs text-[#4A5D4E]/70">
+            If your SMS app did not open, <a id="contact-confirmation-sms-fallback" class="font-bold underline">tap here to try again</a>.
+          </p>
           <button id="contact-return-home" type="button" class="w-full rounded-xl bg-[#344E41] hover:bg-[#233B31] text-white py-4 px-6 font-bold tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-[#344E41] focus:ring-offset-2">
             Return to Home &amp; Continue Shopping
           </button>
@@ -62,6 +67,7 @@ if (contactForm) {
 
     document.getElementById('contact-confirmation-name').textContent = clientName;
     document.getElementById('contact-confirmation-sms').href = smsUrl;
+    document.getElementById('contact-confirmation-sms-fallback').href = smsUrl;
     document.getElementById('contact-return-home').addEventListener('click', function() {
       navigateTo('home');
     });
